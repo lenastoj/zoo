@@ -13,14 +13,12 @@ function AnimalList() {
     {type: 'bird', name: 'owl'}
   ];
   const [animals, setAnimals] = useState(initalAnimals);
-  // const [orderAnimals, setOrderAnimals] = useState(initalAnimals);
-
 
   const HandleRemove = (deleteAnimal) => {
-    // alert(animal);
     const newAnimals = animals.filter((animal) => animal !== deleteAnimal)
     setAnimals(newAnimals);
   }
+
   const MoveToTop = (moveAnimal) => {
     let firstAnimal;
     const newAnimalsOrder = animals.filter((animal) => {
@@ -32,9 +30,33 @@ function AnimalList() {
        setAnimals([...firstAnimal, ...newAnimalsOrder])
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  }
+  const AddAnimal = (event) => {
+    let newAnimal = {[event.target.id]: event.target.value};
+    setAnimals([...animals, newAnimal]);
+  }
+
+
   return(
     <div className="App">
       <h1>Animal List:</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Type:
+          <input type="text" name="type" value={animals.type} onChange={AddAnimal}/>
+        </label>
+        <label>
+          Name:
+          <input type="text" name="name" value={animals.type} onChange={AddAnimal}/>
+        </label>
+        <label>
+          Date of Birth:
+          <input type="number" name="dateOfBirth" value={animals.dateOfBirth} onChange={AddAnimal}/>
+        </label>
+        <button type='submit'>Add animal</button>
+      </form>
       <table>
         <thead>
             <tr>
