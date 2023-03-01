@@ -1,8 +1,10 @@
 import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
+
 function AnimalList() {
-  const animals = [
+   const initalAnimals = [
     {type: 'bird', name: 'duck', dateOfBirth: new Date().getFullYear() },
     {type: 'bird', name: 'pigeon', dateOfBirth: new Date().getFullYear() },
     {type: 'mammal', name: 'cat', dateOfBirth: new Date().getFullYear() },
@@ -10,9 +12,14 @@ function AnimalList() {
     {type: 'mammal', name: 'rabbit', dateOfBirth: new Date().getFullYear() },
     {type: 'bird', name: 'owl'}
   ];
-  // {console.log(animals)}
+  const [animals, setAnimals] = useState(initalAnimals);
 
-  
+  const HandleRemove = (deleteAnimal) => {
+    // alert(animal);
+    const newAnimals = animals.filter((animal) => animal !== deleteAnimal)
+    setAnimals(newAnimals);
+  }
+
   return(
     <div className="App">
       <h1>Animal List:</h1>
@@ -22,6 +29,7 @@ function AnimalList() {
             <th>Type</th>
             <th>Name</th>
             <th>Date Of Birth</th>
+            <th>Remove</th>
             </tr>
         </thead>
         <tbody>
@@ -31,11 +39,12 @@ function AnimalList() {
                 <tr key={key}>
                 <td>{animal.type}</td>
                 <td>{animal.name}</td>
-                {/* <td>{animal.dateOfBirth }</td> */}
                 {animal.dateOfBirth == null ?
                   <td>Unknown</td> :
                   <td>{animal.dateOfBirth }</td> 
                   }
+                  <td><button onClick={() => HandleRemove(animal)}>Remove</button></td>
+                  {/* <td><button>Remove</button></td> */}
                 </tr>
             )
             })}
