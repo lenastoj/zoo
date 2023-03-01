@@ -7,9 +7,12 @@ function AnimalList() {
     {type: 'bird', name: 'pigeon', dateOfBirth: new Date().getFullYear() },
     {type: 'mammal', name: 'cat', dateOfBirth: new Date().getFullYear() },
     {type: 'mammal', name: 'dog', dateOfBirth: new Date().getFullYear() },
-    {type: 'mammal', name: 'rabbit', dateOfBirth: new Date().getFullYear() }
+    {type: 'mammal', name: 'rabbit', dateOfBirth: new Date().getFullYear() },
+    {type: 'bird', name: 'owl'}
   ];
+  // {console.log(animals)}
 
+  
   return(
     <div className="App">
       <h1>Animal List:</h1>
@@ -22,12 +25,17 @@ function AnimalList() {
             </tr>
         </thead>
         <tbody>
-            {animals.map((animal, key) => {
+            {animals.map((animal, key) => 
+            {
             return (
                 <tr key={key}>
                 <td>{animal.type}</td>
                 <td>{animal.name}</td>
-                <td>{animal.dateOfBirth }</td>
+                {/* <td>{animal.dateOfBirth }</td> */}
+                {animal.dateOfBirth == null ?
+                  <td>Unknown</td> :
+                  <td>{animal.dateOfBirth }</td> 
+                  }
                 </tr>
             )
             })}
