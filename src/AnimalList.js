@@ -13,11 +13,23 @@ function AnimalList() {
     {type: 'bird', name: 'owl'}
   ];
   const [animals, setAnimals] = useState(initalAnimals);
+  // const [orderAnimals, setOrderAnimals] = useState(initalAnimals);
+
 
   const HandleRemove = (deleteAnimal) => {
     // alert(animal);
     const newAnimals = animals.filter((animal) => animal !== deleteAnimal)
     setAnimals(newAnimals);
+  }
+  const MoveToTop = (moveAnimal) => {
+    let firstAnimal;
+    const newAnimalsOrder = animals.filter((animal) => {
+      if(animal == moveAnimal) {
+        firstAnimal = [animal];
+        return false;
+      }
+       return true;});
+       setAnimals([...firstAnimal, ...newAnimalsOrder])
   }
 
   return(
@@ -44,7 +56,10 @@ function AnimalList() {
                   <td>{animal.dateOfBirth }</td> 
                   }
                   <td><button onClick={() => HandleRemove(animal)}>Remove</button></td>
+                  <td><button onClick={() => MoveToTop(animal)}>Move To Top</button></td>
                   {/* <td><button>Remove</button></td> */}
+                  {/* <td><button>Move To Top</button></td> */}
+
                 </tr>
             )
             })}
