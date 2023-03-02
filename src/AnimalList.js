@@ -31,7 +31,7 @@ function AnimalList() {
     setAnimals([...firstAnimal, ...newAnimalsOrder]);
   };
 
-  const allSectors = ["birds", "mammals", "lions", "snakes"];
+  const allSectors = ["birds", "mammals", "insects", "snakes"];
   const [type, setType] = useState();
   const [name, setName] = useState();
   const [dateOfBirth, setDateOfBirth] = useState();
@@ -51,7 +51,13 @@ function AnimalList() {
     setType("");
     setName("");
     setDateOfBirth("");
-    setSector("");
+  };
+
+  const CheckAnimals = (animalSector) => {
+    let animalsInSector = animals
+      .filter((animal) => animal.sector == animalSector)
+      .map((item) => item.name);
+    alert(animalsInSector);
   };
 
   return (
@@ -85,7 +91,6 @@ function AnimalList() {
         <label>
           Sector:
           <select
-            value={sector}
             onChange={(e) => {
               setSector(e.target.value);
             }}
@@ -134,6 +139,29 @@ function AnimalList() {
                 ) : (
                   <td>{animal.sector}</td>
                 )}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Sectors</th>
+            <th>Animals</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allSectors.map((element, index) => {
+            return (
+              <tr key={index}>
+                <td>{element}</td>
+                <td>
+                  <button onClick={() => CheckAnimals(element)}>
+                    Check animals
+                  </button>
+                </td>
               </tr>
             );
           })}
