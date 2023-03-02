@@ -31,9 +31,11 @@ function AnimalList() {
     setAnimals([...firstAnimal, ...newAnimalsOrder]);
   };
 
-  const [type, setType] = useState("");
-  const [name, setName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const allSectors = ["birds", "mammals", "lions", "snakes"];
+  const [type, setType] = useState();
+  const [name, setName] = useState();
+  const [dateOfBirth, setDateOfBirth] = useState();
+  const [sector, setSector] = useState();
 
   const HandleSubmit = (e) => {
     e.preventDefault();
@@ -42,11 +44,13 @@ function AnimalList() {
         type,
         name,
         dateOfBirth,
+        sector,
       })
     );
     setType("");
     setName("");
     setDateOfBirth("");
+    setSector("");
   };
 
   return (
@@ -77,6 +81,23 @@ function AnimalList() {
             onChange={(e) => setDateOfBirth(e.target.value)}
           />
         </label>
+        <label>
+          Sector:
+          <select
+            value={sector}
+            onChange={(e) => {
+              setSector(e.target.value);
+            }}
+          >
+            {allSectors.map((element, index) => {
+              return (
+                <option key={index} value={element}>
+                  {element}
+                </option>
+              );
+            })}
+          </select>
+        </label>
         <button type="submit">Add animal</button>
       </form>
       <table>
@@ -86,6 +107,8 @@ function AnimalList() {
             <th>Name</th>
             <th>Date Of Birth</th>
             <th>Remove</th>
+            <th>Move</th>
+            <th>Sector</th>
           </tr>
         </thead>
         <tbody>
@@ -105,6 +128,11 @@ function AnimalList() {
                 <td>
                   <button onClick={() => MoveToTop(animal)}>Move To Top</button>
                 </td>
+                {animal.sector == null ? (
+                  <td>Unknown</td>
+                ) : (
+                  <td>{animal.sector}</td>
+                )}
               </tr>
             );
           })}
