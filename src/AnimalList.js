@@ -47,6 +47,7 @@ function AnimalList() {
         sector,
       })
     );
+
     setType("");
     setName("");
     setDateOfBirth("");
